@@ -1,0 +1,25 @@
+<h1>Attractions Index</h1>
+
+<br>
+<% if User.find(session[:user_id]).admin %>
+  <%= link_to "New Attraction", new_attraction_path %><br>
+  
+  <% @attractions.each do |a| %>
+    <%= link_to "Show #{a.name}", attraction_path(a) %><br>
+  <% end %>
+  
+<% else %>
+<ul>
+  <% @attractions.each do |a| %>
+  <li><%= link_to "Go on #{a.name}", attraction_path(a) %></li>
+      Ticket cost: <%= a.tickets %><br>
+      Min height: <%= a.min_height %><br>
+      Happiness Rating: <%= a.happiness_rating %><br>
+      Height minimum: <%= a.min_height %>
+  <% end %>
+</ul>
+<% end %>
+
+
+
+

@@ -19,11 +19,18 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-        <a class="navbar-brand" href="<%= root_url %>"/>Home</a>
+        
+        <%= link_to "Home", root_path, class: "navbar-brand"  %>
+    
+        <%if current_user.present? %>
+          <%= link_to "Log Out", signout_path, class: "navbar-brand" %>
+        <% else %>
+            <%= link_to "Sign In", signin_path, class: "navbar-brand"  %>
+            <%= link_to "Sign Up", new_user_path, class: "navbar-brand"  %>
+          <% end %>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-           <!--  nav here -->
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -31,6 +38,10 @@
 
     <!-- content -->
     <div class="container"  role="main">
+        <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
+        <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
+        <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
+        
       <%= yield %>
     </div>
 
